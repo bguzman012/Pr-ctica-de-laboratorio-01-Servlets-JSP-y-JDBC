@@ -20,10 +20,10 @@ public class JDBCUsuarioDAO extends JDBCGenericDAO<Usuario, String> implements U
 		// TODO Auto-generated method stub
 		conexionUno.update("DROP TABLE IF EXISTS Telefono");
 		conexionUno.update("DROP TABLE IF EXISTS Usuario");
-		conexionUno.update("CREATE TABLE Usuario (" + "CEDULA VARCHAR(10) NOT NULL UNIQUE, "
-				+ "NOMBRE VARCHAR(50) NOT NULL, APELLIDO VARCHAR(50) NOT NULL, "
-				+ "CORREO VARCHAR(100) NOT NULL, CONTRASENIA VARCHAR(25) NOT NULL"
-				+ " PRIMARY KEY (CEDULA))");
+		conexionUno.update("CREATE TABLE Usuario (" + "USU_CEDULA VARCHAR(10) NOT NULL UNIQUE, "
+				+ "USU_NOMBRE VARCHAR(50) NOT NULL, USU_APELLIDO VARCHAR(50) NOT NULL, "
+				+ "USU_CORREO VARCHAR(100) NOT NULL, USU_CONTRASENIA VARCHAR(25) NOT NULL"
+				+ " PRIMARY KEY (USU_CEDULA))");
 		DAOGuia.getGuia().getUsuarioDAO().createTable();
 
 	}
@@ -36,7 +36,8 @@ public class JDBCUsuarioDAO extends JDBCGenericDAO<Usuario, String> implements U
 		Set<Telefono> telefonos = usuario.getTelefonos();
 		if (telefonos != null) {
 			for (Telefono telefono : telefonos) {
-				DAOGuia.getGuia().getTelefonoDAO().create(telefono);
+				
+				DAOGuia.getGuia().getTelefonoDAO().createTabla(telefono, usuario.getCedula());
 			}
 		}
 
@@ -46,10 +47,10 @@ public class JDBCUsuarioDAO extends JDBCGenericDAO<Usuario, String> implements U
 	public Usuario read(String id) {
 		// TODO Auto-generated method stub
 		Usuario usuario = null;
-		ResultSet rs = conexionUno.query("SELECT * FROM Usuario WHERE contrasenia= '" + id + "'");
+		ResultSet rs = conexionUno.query("SELECT * FROM Usuario WHERE USU_CEDULA = '" + id + "'");
 		try {
-			usuario = new Usuario(rs.getString("cedula"), rs.getString("nombre"), rs.getString("apellido"), rs.getString("correo"), 
-					rs.getString("contrasenia"));
+			usuario = new Usuario(rs.getString("USU_CEDULA"), rs.getString("USU_NOMBRE"), rs.getString("USU_APELLIDO"), 
+					rs.getString("USU_CORREO"), rs.getString("USU_CONTRASENIA"));
 
 		}catch(SQLException e){
 			System.out.println(">>>WARNING (JDBCUserDAO:read): " + e.getMessage());
@@ -72,8 +73,9 @@ public class JDBCUsuarioDAO extends JDBCGenericDAO<Usuario, String> implements U
 		// TODO Auto-generated method stub
 		TelefonoDAO telefonoDAO = DAOGuia.getGuia().getTelefonoDAO();
 		Set<Telefono> telefonos = telefonoDAO.findByUsuario(usuario.getContrasenia());	
-		conexionUno.update("UPDATE Usuario SET nombre = '" + usuario.getNombre() + "', apellido = '" + usuario.getApellido() + "', correo = '" 
-				+ usuario.getCorreo() + "', contrasenia ='" + usuario.getContrasenia() + "' WHERE cedula = '" + usuario.getCedula() + "'");
+		conexionUno.update("UPDATE Usuario SET USU_NOMBRE = '" + usuario.getNombre() + "', USU_APELLIDO = '" + usuario.getApellido() + 
+				"', USU_CORREO = '" + usuario.getCorreo() + "', USU_CONTRASENIA ='" + usuario.getContrasenia() + "' WHERE USU_CEDULA = '" +
+				usuario.getCedula() + "'");
 
 		if (usuario.getTelefonos() == null && telefonos != null) {
 			for (Telefono telefono : telefonos) {
@@ -101,7 +103,7 @@ public class JDBCUsuarioDAO extends JDBCGenericDAO<Usuario, String> implements U
 				DAOGuia.getGuia().getTelefonoDAO().delete(telefonos);
 			}
 		}
-		conexionUno.update("DELETE FROM Usuario WHERE contrasenia = '" + usuario.getContrasenia() + "'");
+		conexionUno.update("DELETE FROM Usuario WHERE USU_CEDULA = '" + usuario.getCedula() + "'");
 
 	}
 
@@ -112,8 +114,8 @@ public class JDBCUsuarioDAO extends JDBCGenericDAO<Usuario, String> implements U
 		ResultSet rs = conexionUno.query("SELECT * FROM Usuario");
 		try {
 			while (rs.next()) {
-				Usuario usuario = new Usuario(rs.getString("cedula"), rs.getString("nombre"), rs.getString("apellido"), rs.getString("correo"), 
-						rs.getString("contraenia"));
+				Usuario usuario = new Usuario(rs.getString("USU_CEDULA"), rs.getString("USU_NOMBRE"), rs.getString("USU_APELLIDO"),
+						rs.getString("USU_CORREO"), rs.getString("USU_CONTRASENIA"));
 
 				Set<Telefono> telefonos = DAOGuia.getGuia().getTelefonoDAO().
 						findByUsuario(usuario.getCedula());
