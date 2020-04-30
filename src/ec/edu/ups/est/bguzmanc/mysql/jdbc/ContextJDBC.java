@@ -1,4 +1,4 @@
-package ec.edu.ups.bguzmanc.mysql.jdbc;
+package ec.edu.ups.est.bguzmanc.mysql.jdbc;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
