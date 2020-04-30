@@ -9,30 +9,36 @@ public class Usuario implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	private int id;
 	private String cedula;
 	private String nombre;
 	private String apellido;
 	private String correo;
 	private Set<Telefono> telefonos;
 	private Set<Usuario> usuarios;
-	
-	
-	public Usuario(String cedula, String nombre, String apellido, String correo) {
-		super();
-		this.cedula = cedula;
-		this.nombre = nombre;
-		this.apellido = apellido;
-		this.correo = correo;
-	}
 
 
 	public Usuario() {
 		
 		// TODO Auto-generated constructor stub
 	}
-	
-	
-	
+		
+	/**
+	 * @return the id
+	 */
+	public int getId() {
+		return id;
+	}
+
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(int id) {
+		this.id = id;
+	}
+
+
+
 	/**
 	 * @return the usuarios
 	 */
@@ -111,10 +117,11 @@ public class Usuario implements Serializable {
 	}
 
 
+
 	@Override
 	public String toString() {
-		return "Usuario [cedula=" + cedula + ", nombre=" + nombre + ", apellido=" + apellido + ", correo=" + correo
-				+ ", telefonos=" + telefonos + ", usuarios=" + usuarios + "]";
+		return "Usuario [id=" + id + ", cedula=" + cedula + ", nombre=" + nombre + ", apellido=" + apellido
+				+ ", correo=" + correo + ", telefonos=" + telefonos + ", usuarios=" + usuarios + "]";
 	}
 	
 	

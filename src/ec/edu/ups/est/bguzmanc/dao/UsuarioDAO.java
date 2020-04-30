@@ -1,5 +1,7 @@
 package ec.edu.ups.est.bguzmanc.dao;
 
-public interface UsuarioDAO extends GenericDAO<UsuarioDAO, String>{
+import ec.edu.ups.est.bguzmanc.modelo.Usuario;
+
+public interface UsuarioDAO extends GenericDAO<Usuario, Integer>{
 
 }
