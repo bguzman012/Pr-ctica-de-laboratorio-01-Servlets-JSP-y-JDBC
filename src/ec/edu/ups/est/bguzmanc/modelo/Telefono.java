@@ -18,13 +18,12 @@ public class Telefono implements Serializable {
 		
 	}
 	
-	public Telefono(int codigo, String numero, String tipo, String operadora, Usuario usuario) {
+	public Telefono(int codigo, String numero, String tipo, String operadora) {
 		super();
 		this.codigo = codigo;
 		this.numero = numero;
 		this.tipo = tipo;
 		this.operadora = operadora;
-		this.usuario = usuario;
 	}
 	/**
 	 * @return the codigo

@@ -14,14 +14,15 @@ public class Usuario implements Serializable {
 	private String apellido;
 	private String correo;
 	private Set<Telefono> telefonos;
+	private Set<Usuario> usuarios;
 	
-	public Usuario(String cedula, String nombre, String apellido, String correo, Set<Telefono> telefonos) {
+	
+	public Usuario(String cedula, String nombre, String apellido, String correo) {
 		super();
 		this.cedula = cedula;
 		this.nombre = nombre;
 		this.apellido = apellido;
 		this.correo = correo;
-		this.telefonos = telefonos;
 	}
 
 
@@ -31,6 +32,23 @@ public class Usuario implements Serializable {
 	}
 	
 	
+	
+	/**
+	 * @return the usuarios
+	 */
+	public Set<Usuario> getUsuarios() {
+		return usuarios;
+	}
+
+
+	/**
+	 * @param usuarios the usuarios to set
+	 */
+	public void setUsuarios(Set<Usuario> usuarios) {
+		this.usuarios = usuarios;
+	}
+
+
 	/**
 	 * @return the cedula
 	 */
@@ -96,9 +114,8 @@ public class Usuario implements Serializable {
 	@Override
 	public String toString() {
 		return "Usuario [cedula=" + cedula + ", nombre=" + nombre + ", apellido=" + apellido + ", correo=" + correo
-				+ ", telefonos=" + telefonos + "]";
+				+ ", telefonos=" + telefonos + ", usuarios=" + usuarios + "]";
 	}
-	
 	
 	
 
