@@ -1,5 +1,6 @@
 package ec.edu.ups.est.bguzmanc.dao;
 
+import ec.edu.ups.est.bguzmanc.mysql.jdbc.JDBCTelefonoDAO;
 import ec.edu.ups.est.bguzmanc.mysql.jdbc.JDBCUsuarioDAO;
 
 public class JDBCDAOGuia extends DAOGuia{
@@ -20,7 +21,7 @@ public class JDBCDAOGuia extends DAOGuia{
 	@Override
 	public TelefonoDAO getTelefonoDAO() {
 		// TODO Auto-generated method stub
-		return null;
+		return new JDBCTelefonoDAO();
 	}
 
 }
