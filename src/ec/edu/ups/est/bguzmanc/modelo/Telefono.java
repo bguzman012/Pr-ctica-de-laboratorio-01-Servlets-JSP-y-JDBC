@@ -12,7 +12,8 @@ public class Telefono implements Serializable {
 	private String numero;
 	private String tipo;
 	private String operadora;
-	private Usuario usuario;
+	
+	
 	
 	public Telefono() {
 		
@@ -73,24 +74,8 @@ public class Telefono implements Serializable {
 	public void setOperadora(String operadora) {
 		this.operadora = operadora;
 	}
-	/**
-	 * @return the usuario
-	 */
-	public Usuario getUsuario() {
-		return usuario;
-	}
-	/**
-	 * @param usuario the usuario to set
-	 */
-	public void setUsuario(Usuario usuario) {
-		this.usuario = usuario;
-	}
 	
-	@Override
-	public String toString() {
-		return "Telefono [codigo=" + codigo + ", numero=" + numero + ", tipo=" + tipo + ", operadora=" + operadora
-				+ ", usuario=" + usuario + "]";
-	}
 	
-
+	
+	
 }
