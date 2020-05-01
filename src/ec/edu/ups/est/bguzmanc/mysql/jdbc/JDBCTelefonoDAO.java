@@ -24,9 +24,9 @@ public class JDBCTelefonoDAO extends JDBCGenericDAO<Telefono, Integer> implement
 	public void createTable() {
 		// TODO Auto-generated method stub
 		conexionDos.update("DROP TABLE IF EXISTS Telefono");
-		conexionDos.update("CREATE TABLE Telefono ( TEL_CODIGO INT NOT NULL UNIQUE, TEL_NUMERO VARCHAR(10), "
-				+ "TEL_TIPO VARCHAR(25), TEL_OPERADORA(25), PRIMARY KEY (TEL_CODIGO), "
-				+ "FOREIGN KEY(USU_CEDULA) REFERENCES USUARIO(CEDULA))");
+		conexionDos.update("CREATE TABLE Telefono (" + "TEL_CODIGO INT NOT NULL UNIQUE, TEL_NUMERO VARCHAR(10) NOT NULL, "
+				+ "TEL_TIPO VARCHAR(25) NOT NULL, TEL_OPERADORA VARCHAR(25) NOT NULL, USU_CEDULA VARCHAR(10), PRIMARY KEY (TEL_CODIGO), "
+				+ "FOREIGN KEY (USU_CEDULA) REFERENCES Usuario (USU_CEDULA))");
 		
 	}
 

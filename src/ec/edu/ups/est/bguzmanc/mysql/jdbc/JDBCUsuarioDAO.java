@@ -22,17 +22,18 @@ public class JDBCUsuarioDAO extends JDBCGenericDAO<Usuario, String> implements U
 		conexionUno.update("DROP TABLE IF EXISTS Usuario");
 		conexionUno.update("CREATE TABLE Usuario (" + "USU_CEDULA VARCHAR(10) NOT NULL UNIQUE, "
 				+ "USU_NOMBRE VARCHAR(50) NOT NULL, USU_APELLIDO VARCHAR(50) NOT NULL, "
-				+ "USU_CORREO VARCHAR(100) NOT NULL, USU_CONTRASENIA VARCHAR(25) NOT NULL"
-				+ " PRIMARY KEY (USU_CEDULA))");
-		DAOGuia.getGuia().getUsuarioDAO().createTable();
-
+				+ "USU_CORREO VARCHAR(100) NOT NULL, USU_CONTRASENIA VARCHAR(25) NOT NULL, "
+				+ "PRIMARY KEY (USU_CEDULA))");
+		
 	}
 
 	@Override
 	public void create(Usuario usuario) {
 		// TODO Auto-generated method stub
-		conexionUno.update("INSERT User VALUES ('" + usuario.getCedula() + "', '" + usuario.getNombre() + "', '" + usuario.getApellido()
-		+ "', '" + usuario.getCorreo() + "', '" + usuario.getContrasenia() + "')");
+		conexionUno.update("INSERT Usuario VALUES ('" + usuario.getCedula() + "', '" + usuario.getNombre() + "', '" + usuario.getApellido() + "', '" + usuario.getCorreo() + "', '" + usuario.getContrasenia() + "')");
+		
+		
+		
 		Set<Telefono> telefonos = usuario.getTelefonos();
 		if (telefonos != null) {
 			for (Telefono telefono : telefonos) {

@@ -60,6 +60,7 @@ public class ContextJDBC {
 	public boolean update(String sql) {
 		try {
 			this.statement.executeUpdate(sql);
+			
 			return true;
 		} catch (SQLException e) {
 			System.out.println(">>>WARNING (JDBC:update)... actualizacion: ---" + sql + "---" + e);
