@@ -31,36 +31,36 @@ public class Sesiones extends HttpServlet {
     public Sesiones() {
         
     	super();
-        
+      
         //Solo crea una sola vez las tablas
-    	UsuarioDAO usuarioDAO = DAOGuia.getGuia().getUsuarioDAO();
+    	//UsuarioDAO usuarioDAO = DAOGuia.getGuia().getUsuarioDAO();
 		//usuarioDAO.createTable(); 
-		TelefonoDAO telefonoDAO = DAOGuia.getGuia().getTelefonoDAO();
+		//TelefonoDAO telefonoDAO = DAOGuia.getGuia().getTelefonoDAO();
 		//telefonoDAO.createTable(); 
         // TODO Auto-generated constructor stub
 		
-		Usuario u = new Usuario("0123456753", "Bryam", "Guzman", "bryamgmfn@gmail.com", "1234");
+		//Usuario u = new Usuario("0123456753", "Bryam", "Guzman", "bryamgmfn@gmail.com", "1234");
 		
-		Usuario u1 = new Usuario("0102541487", "Wilson", "Guzman", "wilson@gmail.com", "12534");
+		//Usuario u1 = new Usuario("0102541487", "Wilson", "Guzman", "wilson@gmail.com", "12534");
 		
-		Telefono tel = new Telefono(3, "0984966328", "Movil", "Movistar");
-		Telefono tel2 = new Telefono(4, "0968420404", "Movil", "Claro");
+		//Telefono tel = new Telefono(3, "0984966328", "Movil", "Movistar");
+		//Telefono tel2 = new Telefono(4, "0968420404", "Movil", "Claro");
 		
-		Set<Telefono> telefonos1 = new HashSet<Telefono>();
-		telefonos1.add(tel);
-		telefonos1.add(tel2);
+		//Set<Telefono> telefonos1 = new HashSet<Telefono>();
+		//telefonos1.add(tel);
+		//telefonos1.add(tel2);
 		
 		
-		u.setTelefonos(telefonos1);
+		//u.setTelefonos(telefonos1);
 		
-		usuarioDAO.create(u);
-		usuarioDAO.create(u1);
+		//usuarioDAO.create(u);
+		//usuarioDAO.create(u1);
 		
     }
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
+	*/
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		response.setContentType("text/html"); 
@@ -71,13 +71,15 @@ public class Sesiones extends HttpServlet {
 		String pass = request.getParameter("password");
 		if ("bryam".equals(user) && "1234".equals(pass)) {
 			
-			HttpSession session = request.getSession(true); 
+			response.sendRedirect("index.html");
+			HttpSession session = request.getSession(true);
+			request.setAttribute("user", "Hola");
 
 			session.setAttribute("accesos", 1); 
 
 			//response.sendRedirect("Operaciones");
 		}else {
-			out.println("<a href='index.html'><h1>Incorrecto, digite correctamente los datos</h1></a>");
+			//out.println("<a href='index.html'><h1>Incorrecto, digite correctamente los datos</h1></a>");
 		}
 	}
 
