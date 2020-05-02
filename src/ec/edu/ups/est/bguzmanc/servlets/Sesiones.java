@@ -1,4 +1,4 @@
-package ec.edu.ups.bguzmanc.servlets;
+package ec.edu.ups.est.bguzmanc.servlets;
 
 import java.io.IOException;
 import java.io.PrintWriter;
