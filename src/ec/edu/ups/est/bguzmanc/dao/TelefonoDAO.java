@@ -10,5 +10,6 @@ public interface TelefonoDAO extends GenericDAO<Telefono, Integer> {
 
 	public abstract void createTabla(Telefono telefono, String cedula);
 	
+	public abstract boolean validarNumero(String texto);
 	
 }

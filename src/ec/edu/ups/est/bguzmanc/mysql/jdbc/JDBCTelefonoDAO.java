@@ -24,7 +24,7 @@ public class JDBCTelefonoDAO extends JDBCGenericDAO<Telefono, Integer> implement
 	public void createTable() {
 		// TODO Auto-generated method stub
 		conexionDos.update("DROP TABLE IF EXISTS Telefono");
-		conexionDos.update("CREATE TABLE Telefono (" + "TEL_CODIGO INT NOT NULL UNIQUE, TEL_NUMERO VARCHAR(10) NOT NULL, "
+		conexionDos.update("CREATE TABLE Telefono (" + "TEL_CODIGO INT(10) NOT NULL UNIQUE AUTO_INCREMENT, TEL_NUMERO VARCHAR(10) NOT NULL UNIQUE, "
 				+ "TEL_TIPO VARCHAR(25) NOT NULL, TEL_OPERADORA VARCHAR(25) NOT NULL, USU_CEDULA VARCHAR(10), PRIMARY KEY (TEL_CODIGO), "
 				+ "FOREIGN KEY (USU_CEDULA) REFERENCES Usuario (USU_CEDULA))");
 		
@@ -54,14 +54,14 @@ public class JDBCTelefonoDAO extends JDBCGenericDAO<Telefono, Integer> implement
 		// TODO Auto-generated method stub
 		
 		conexionUno.update("UPDATE Telefono SET TEL_NUMERO = '" + telefono.getNumero() + "', TEL_TIPO = '"
-				+ telefono.getTipo() + "', TEL_OPERADORA = '" + telefono.getOperadora() + "' WHERE TEL_CODIGO = " 
-				+ telefono.getCodigo());	
+				+ telefono.getTipo() + "', TEL_OPERADORA = '" + telefono.getOperadora() + "' WHERE TEL_NUMERO = " 
+				+ telefono.getNumero());	
 	}
 
 	@Override
 	public void delete(Telefono telefono) {
 		// TODO Auto-generated method stub
-		conexionUno.update("DELETE FROM TELEFONO WHERE TEL_CODIGO = " + telefono.getCodigo());
+		conexionUno.update("DELETE FROM TELEFONO WHERE TEL_NUMERO = " + telefono.getNumero());
 		
 	}
 
@@ -72,7 +72,7 @@ public class JDBCTelefonoDAO extends JDBCGenericDAO<Telefono, Integer> implement
 		ResultSet rsTelefono = conexionUno.query("Select * FROM Telefono");
 		try {
 			while(rsTelefono.next()) {
-				Telefono telefono = new Telefono(rsTelefono.getInt("TEL_CODIGO"), rsTelefono.getString("TEL_NUMERO"), 
+				Telefono telefono = new Telefono(rsTelefono.getString("TEL_NUMERO"), 
 						rsTelefono.getString("TEL_TIPO"), rsTelefono.getString("TEL_OPERADORA"));
 				list.add(telefono);
 			}
@@ -96,10 +96,11 @@ public class JDBCTelefonoDAO extends JDBCGenericDAO<Telefono, Integer> implement
 	public Set<Telefono> findByUsuario(String cedula) {
 		// TODO Auto-generated method stub
 		Set<Telefono> list = new HashSet<Telefono>();
-		ResultSet rsTelefono = conexionDos.query("SELECT * FROM TELEFONO WHERE USU_CEDULA ='" + cedula + "'");
+		ResultSet rsTelefono = conexionDos.query("SELECT * FROM TELEFONO WHERE USU_CEDULA ='" + cedula + "'"
+				+ "ORDER BY TEL_NUMERO");
 		try {
 			while (rsTelefono.next()) {
-				Telefono telefono = new Telefono(rsTelefono.getInt("TEL_CODIGO"), rsTelefono.getString("TEL_NUMERO"), 
+				Telefono telefono = new Telefono(rsTelefono.getString("TEL_NUMERO"), 
 						rsTelefono.getString("TEL_TIPO"), rsTelefono.getString("TEL_OPERADORA"));
 				list.add(telefono);
 			}
@@ -107,22 +108,22 @@ public class JDBCTelefonoDAO extends JDBCGenericDAO<Telefono, Integer> implement
 			System.out.println(">>>WARNING (JDBCProductDAO:findByShoppingBasketId): " + e.getMessage());
 		}
 		return list;
-		/*
-		 * 
-		ResultSet rsProduct = conexionDos.query("SELECT * FROM Product WHERE shopping_basket_id=" + shoppingBasketId);
-		try {
-			while (rsProduct.next()) {
-				Product product = new Product(rsProduct.getInt("id"), rsProduct.getInt("amount"),
-						rsProduct.getString("description"));
-				list.add(product);
-			}
-		} catch (SQLException e) {
-			System.out.println(">>>WARNING (JDBCProductDAO:findByShoppingBasketId): " + e.getMessage());
-		}
 
-		return list;
-		 */
 	}
+	public boolean validarNumero(String texto) {
+		boolean ban = true;
+		for (int i = 0; i < texto.length(); i++) {
+			char o = texto.charAt(i);
+			if(!(o >= 48 && o <= 57)) {
+				ban = false;
+			}
+				
+
+		}	
+		
+		return ban;
+	}
+	
 
 
 }
