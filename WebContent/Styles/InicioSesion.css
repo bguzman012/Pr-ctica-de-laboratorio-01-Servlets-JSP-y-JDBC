@@ -10,7 +10,7 @@ box-sizing: border-box;
 margin: 20px auto;
 width: 300px;
 }
-.login-screen {border-block-end: none;border-block-end: none;backdrop-filter: none;border-style: outset;}
+.login-screen {border-block-end: none;border-block-end: none;backdrop-filter: none;background-color: aliceblue;border-style: outset;}
 
 .app-title {
 text-align: center;
