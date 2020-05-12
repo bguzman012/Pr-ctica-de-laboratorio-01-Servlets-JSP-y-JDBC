@@ -1086,7 +1086,7 @@ body {
   font-size: 14px;
   line-height: 1.42857143;
   color: #333;
-  background-color: #fff;
+  background-color: currentColor;
 }
 input,
 button,
@@ -1097,7 +1097,7 @@ textarea {
   line-height: inherit;
 }
 a {
-  color: #337ab7;
+  color: red;
   text-decoration: none;
 }
 a:hover,
@@ -1560,7 +1560,7 @@ pre {
   display: block;
   padding: 9.5px;
   margin: 0 0 10px;
-  font-size: 13px;
+  font-size: medium;
   line-height: 1.42857143;
   color: #333;
   word-break: break-all;
