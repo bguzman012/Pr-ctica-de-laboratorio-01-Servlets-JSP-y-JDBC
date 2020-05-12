@@ -9,7 +9,9 @@ public interface TelefonoDAO extends GenericDAO<Telefono, Integer> {
 	public abstract Set<Telefono> findByUsuario(String contrasena);
 
 	public abstract void createTabla(Telefono telefono, String cedula);
-	
-	public abstract boolean validarNumero(String texto);
+
+	public abstract Telefono read(String numero);
+
+	public abstract void updateNumero(Telefono telefono, String clave);
 	
 }

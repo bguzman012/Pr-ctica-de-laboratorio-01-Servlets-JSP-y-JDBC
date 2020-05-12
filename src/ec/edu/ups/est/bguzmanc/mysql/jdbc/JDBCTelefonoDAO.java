@@ -9,9 +9,10 @@ import java.util.Set;
 
 import ec.edu.ups.est.bguzmanc.dao.TelefonoDAO;
 import ec.edu.ups.est.bguzmanc.modelo.Telefono;
+import ec.edu.ups.est.bguzmanc.modelo.Usuario;
 
 public class JDBCTelefonoDAO extends JDBCGenericDAO<Telefono, Integer> implements TelefonoDAO{
- 
+
 	/*
 	 * private static final long serialVersionUID = 1L;
 	private int codigo;
@@ -19,7 +20,7 @@ public class JDBCTelefonoDAO extends JDBCGenericDAO<Telefono, Integer> implement
 	private String tipo;
 	private String operadora;
 	 */
-	
+
 	@Override
 	public void createTable() {
 		// TODO Auto-generated method stub
@@ -27,32 +28,52 @@ public class JDBCTelefonoDAO extends JDBCGenericDAO<Telefono, Integer> implement
 		conexionDos.update("CREATE TABLE Telefono (" + "TEL_CODIGO INT(10) NOT NULL UNIQUE AUTO_INCREMENT, TEL_NUMERO VARCHAR(10) NOT NULL UNIQUE, "
 				+ "TEL_TIPO VARCHAR(25) NOT NULL, TEL_OPERADORA VARCHAR(25) NOT NULL, USU_CEDULA VARCHAR(10), PRIMARY KEY (TEL_CODIGO), "
 				+ "FOREIGN KEY (USU_CEDULA) REFERENCES Usuario (USU_CEDULA))");
-		
+
 	}
 
 	@Override
 	public void create(Telefono telefono) {
-		
+
+
 	}
 	
+
 	public void createTabla(Telefono telefono, String id) {
 		// TODO Auto-generated method stub
-		conexionDos.update("INSERT Telefono VALUES (" + telefono.getCodigo() + ", '" + telefono.getNumero() + "', '"
-				+ telefono.getTipo() + "', '" + telefono.getOperadora() + "', '" + id + "')");
-				
+		conexionUno.update("INSERT INTO Telefono (TEL_NUMERO, TEL_TIPO, TEL_OPERADORA, USU_CEDULA) VALUES ('" + 
+				telefono.getNumero() + "', '"+ telefono.getTipo() + "', '" + telefono.getOperadora() + "', '" + id +"')");
+
 	}
 
 	@Override
-	public Telefono read(Integer id) {
+	public Telefono read(String numero) {
 		// TODO Auto-generated method stub
-		return null;
+		Telefono telefono = null;
+		ResultSet rs = conexionDos.query("Select * from Telefono where TEL_NUMERO= " + numero );
+		try {
+			if (rs != null && rs.next()) {
+				telefono = new Telefono(rs.getString("TEL_NUMERO"), rs.getString("TEL_TIPO"), 
+						rs.getString("TEL_OPERADORA"));
+
+			}
+
+		}catch(SQLException e){
+			System.out.println(">>>WARNING (JDBCUserDAO:read): " + e.getMessage());
+
+
+		}if(telefono == null) {
+			return null;
+		}
+
+		return telefono;
+
 	}
 
 
 	@Override
 	public void update(Telefono telefono) {
 		// TODO Auto-generated method stub
-		
+
 		conexionUno.update("UPDATE Telefono SET TEL_NUMERO = '" + telefono.getNumero() + "', TEL_TIPO = '"
 				+ telefono.getTipo() + "', TEL_OPERADORA = '" + telefono.getOperadora() + "' WHERE TEL_NUMERO = " 
 				+ telefono.getNumero());	
@@ -62,7 +83,7 @@ public class JDBCTelefonoDAO extends JDBCGenericDAO<Telefono, Integer> implement
 	public void delete(Telefono telefono) {
 		// TODO Auto-generated method stub
 		conexionUno.update("DELETE FROM TELEFONO WHERE TEL_NUMERO = " + telefono.getNumero());
-		
+
 	}
 
 	@Override
@@ -79,11 +100,11 @@ public class JDBCTelefonoDAO extends JDBCGenericDAO<Telefono, Integer> implement
 		}catch (SQLException e) {
 			System.out.println(">>>WARNING (JDBCProductDAO:find): " + e.getMessage());
 		}
-		
+
 		return list;
 
 	}
-	
+
 	/*
 	 * private static final long serialVersionUID = 1L;
 	private int codigo;
@@ -96,34 +117,38 @@ public class JDBCTelefonoDAO extends JDBCGenericDAO<Telefono, Integer> implement
 	public Set<Telefono> findByUsuario(String cedula) {
 		// TODO Auto-generated method stub
 		Set<Telefono> list = new HashSet<Telefono>();
-		ResultSet rsTelefono = conexionDos.query("SELECT * FROM TELEFONO WHERE USU_CEDULA ='" + cedula + "'"
-				+ "ORDER BY TEL_NUMERO");
+		ResultSet rsTelefono = conexionDos.query("SELECT * FROM TELEFONO WHERE USU_CEDULA ='" + cedula + "'");
 		try {
 			while (rsTelefono.next()) {
 				Telefono telefono = new Telefono(rsTelefono.getString("TEL_NUMERO"), 
 						rsTelefono.getString("TEL_TIPO"), rsTelefono.getString("TEL_OPERADORA"));
 				list.add(telefono);
 			}
+			System.out.println(list);
 		}catch (SQLException e) {
 			System.out.println(">>>WARNING (JDBCProductDAO:findByShoppingBasketId): " + e.getMessage());
 		}
 		return list;
 
 	}
-	public boolean validarNumero(String texto) {
-		boolean ban = true;
-		for (int i = 0; i < texto.length(); i++) {
-			char o = texto.charAt(i);
-			if(!(o >= 48 && o <= 57)) {
-				ban = false;
-			}
-				
 
-		}	
-		
-		return ban;
+
+	@Override
+	public Telefono read(Integer id) {
+		// TODO Auto-generated method stub
+		return null;
 	}
-	
+
+
+	@Override
+	public void updateNumero(Telefono telefono, String clave) {
+		// TODO Auto-generated method stub
+
+		conexionUno.update("UPDATE Telefono SET TEL_NUMERO = '" + telefono.getNumero() + "', TEL_TIPO = '"
+				+ telefono.getTipo() + "', TEL_OPERADORA = '" + telefono.getOperadora() + "' WHERE TEL_NUMERO = " 
+				+ clave);	
+	}
+
 
 
 }
